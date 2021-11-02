@@ -73,7 +73,6 @@ function letUserSelectQuantity() {
 function removeItemFromCart() {
     console.log("Select an item to be removed from the cart.\n  ");
     for (var i = 0; i < shopping_cart.length; i++) {
-        console.log("");
         console.log(i + ": " + shopping_cart[i].getName());
     }
     var response = readlineSync.question('> ');
