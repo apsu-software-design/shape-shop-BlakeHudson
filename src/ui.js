@@ -5,9 +5,13 @@ exports.__esModule = true;
 exports.start = void 0;
 var readlineSync = require("readline-sync"); //for easier repeated prompts
 var products_1 = require("./products");
+var shape_shop_model_1 = require("./shape-shop-model");
+var cart_view_1 = require("./cart-view");
+var product_list_view_1 = require("./product-list-view");
 // Hey look. It's a global variable. This is totally cool, right?
 var shopping_cart = [];
 var quantity_cart = [];
+var model = new shape_shop_model_1.Model;
 /**
  * Function to run the UI
  */
@@ -48,7 +52,8 @@ function addItemToCart() {
     letUserSelectQuantity();
 }
 function letUserSelectItem() {
-    console.log("Here you can select your shape. Pick an option:\n  1. Buy a Triangle!\n  2. Buy a Square!\n  3. Buy a Pentagon!\n  4. Go back. Don't buy anything.");
+    var prods = new product_list_view_1.ProductListView(model);
+    console.log(prods.getView());
     var response = readlineSync.question('> ');
     switch (response) { //handle each response
         case '1':
@@ -82,13 +87,8 @@ function removeItemFromCart() {
     console.log(''); //extra empty line for revisiting
 }
 function viewItemsInCart() {
-    for (var i = 0; i < shopping_cart.length; i++) {
-        console.log("");
-        console.log("       Name: " + shopping_cart[i].getName());
-        console.log("      Price: " + shopping_cart[i].getPrice());
-        console.log("Description: " + shopping_cart[i].getDescription());
-        console.log("   Quantity: " + quantity_cart[i]);
-    }
+    var view = new cart_view_1.cartView(model);
+    console.log(view.getView());
 }
 function viewCartTotal() {
     var total = 0;

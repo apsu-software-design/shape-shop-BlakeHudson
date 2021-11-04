@@ -7,7 +7,8 @@ export class cartView{
 
     /**
      * constructor
-currentState: Model     */
+     * currentState: Model     
+     * */
     public constructor(currentState: Model) {
         this.state = currentState;
     }

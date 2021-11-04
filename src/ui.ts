@@ -5,6 +5,7 @@ import readlineSync = require('readline-sync'); //for easier repeated prompts
 import {Product} from './products';
 import {Model} from './shape-shop-model';
 import {cartView} from './cart-view';
+import { ProductListView } from './product-list-view';
 
 // Hey look. It's a global variable. This is totally cool, right?
 let shopping_cart: Product[] = [];
@@ -51,11 +52,8 @@ function addItemToCart() {
 }
 
 function letUserSelectItem() {
-    console.log(`Here you can select your shape. Pick an option:
-  1. Buy a Triangle!
-  2. Buy a Square!
-  3. Buy a Pentagon!
-  4. Go back. Don't buy anything.`);
+    let prods: ProductListView = new ProductListView(model);
+    console.log(prods.getView());
 
     let response = readlineSync.question('> ')
 
