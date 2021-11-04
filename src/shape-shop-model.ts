@@ -6,7 +6,7 @@ import {Product} from './products';
  * list of products and 
  * list of quantities for each product. 
  */
-export class model{
+export class Model{
     private shopping_cart: Product[] = [];
     private quantity_cart: number[] = [];
 
@@ -17,6 +17,13 @@ export class model{
     public addProduct(prod: Product){
         this.shopping_cart.push(prod);
     }
+
+    /**
+     * addQuantity
+     */
+    public setQuantity(qty: number) {
+        this.quantity_cart.push(qty);
+    }
     
     /**
      * removes a product based on the index of that product in a list
@@ -24,13 +31,14 @@ export class model{
      */
     public removeProduct(position: number){
         this.shopping_cart.splice(position,1);
+        this.quantity_cart.splice(position, 1);
     }
     
     /**
      * itemsInCart returns a list of all products in cart
      */
-    public itemsInCart() {
-        return this.addProduct;   
+    public itemsInCart(): Product[] {
+        return this.shopping_cart;   
     }
 
 

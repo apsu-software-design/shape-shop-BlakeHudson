@@ -3,11 +3,13 @@
 
 import readlineSync = require('readline-sync'); //for easier repeated prompts
 import {Product} from './products';
+import {Model} from './shape-shop-model';
+import {cartView} from './cart-view';
 
 // Hey look. It's a global variable. This is totally cool, right?
 let shopping_cart: Product[] = [];
 let quantity_cart: number[] = [];
-
+let model: Model = new Model;
 /**
  * Function to run the UI
  */
@@ -93,13 +95,9 @@ function removeItemFromCart() {
 }
 
 function viewItemsInCart() {
-    for (let i = 0; i < shopping_cart.length; i++) {
-        console.log("");
-        console.log("       Name: "+shopping_cart[i].getName());
-        console.log("      Price: "+shopping_cart[i].getPrice());
-        console.log("Description: "+shopping_cart[i].getDescription());
-        console.log("   Quantity: "+quantity_cart[i]);
-    }
+  let view: cartView = new cartView(model);
+  console.log(view.getView());
+
 }
 
 function viewCartTotal() {
