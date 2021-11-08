@@ -21,7 +21,7 @@ export class Model{
     /**
      * addQuantity
      */
-    public setQuantity(qty: number) {
+    public setQuantityOfItem(qty: number) {
         this.quantity_cart.push(qty);
     }
     
@@ -39,6 +39,13 @@ export class Model{
      */
     public itemsInCart(): Product[] {
         return this.shopping_cart;   
+    }
+
+    /**
+     * itemQuantity
+     */
+    public itemQuantity(): number[] {
+        return this.quantity_cart;
     }
 
 

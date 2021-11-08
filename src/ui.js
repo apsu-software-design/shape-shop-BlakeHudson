@@ -8,9 +8,10 @@ var products_1 = require("./products");
 var shape_shop_model_1 = require("./shape-shop-model");
 var cart_view_1 = require("./cart-view");
 var product_list_view_1 = require("./product-list-view");
+var total_price_view_1 = require("./total-price-view");
 // Hey look. It's a global variable. This is totally cool, right?
-var shopping_cart = [];
-var quantity_cart = [];
+//let shopping_cart: Product[] = [];
+//let quantity_cart: number[] = [];
 var model = new shape_shop_model_1.Model;
 /**
  * Function to run the UI
@@ -57,13 +58,13 @@ function letUserSelectItem() {
     var response = readlineSync.question('> ');
     switch (response) { //handle each response
         case '1':
-            shopping_cart.push(new products_1.Product("Triangle", 3.5, "It's got three sides!"));
+            model.addProduct(new products_1.Product("Triangle", 3.5, "It's got three sides!"));
             break;
         case '2':
-            shopping_cart.push(new products_1.Product("Square", 4.5, "It's got four sides!"));
+            model.addProduct(new products_1.Product("Square", 4.5, "It's got four sides!"));
             break;
         case '3':
-            shopping_cart.push(new products_1.Product("Pentagon", 5.5, "It's got five sides!"));
+            model.addProduct(new products_1.Product("Pentagon", 5.5, "It's got five sides!"));
             break;
         default: console.log('Invalid option!');
     }
@@ -72,18 +73,21 @@ function letUserSelectItem() {
 function letUserSelectQuantity() {
     console.log("How many of this shape would you like to purchase?\n  ");
     var response = readlineSync.question('> ');
-    quantity_cart.push(parseInt(response));
+    model.setQuantityOfItem(parseInt(response));
     console.log(''); //extra empty line for revisiting
 }
 function removeItemFromCart() {
     console.log("Select an item to be removed from the cart.\n  ");
-    for (var i = 0; i < shopping_cart.length; i++) {
-        console.log(i + ": " + shopping_cart[i].getName());
-    }
+    /* products available for removal by index
+      for (let i = 0; i < shopping_cart.length; i++) {
+          console.log(i+": "+shopping_cart[i].getName());
+      }
+      */
+    // MAy need a new view here
+    viewItemsInCart();
     var response = readlineSync.question('> ');
     var toRemove = parseInt(response);
-    shopping_cart.splice(toRemove, 1);
-    quantity_cart.splice(toRemove, 1);
+    model.removeProduct(toRemove);
     console.log(''); //extra empty line for revisiting
 }
 function viewItemsInCart() {
@@ -91,9 +95,6 @@ function viewItemsInCart() {
     console.log(view.getView());
 }
 function viewCartTotal() {
-    var total = 0;
-    for (var i = 0; i < shopping_cart.length; i++) {
-        total += shopping_cart[i].getPrice() * quantity_cart[i];
-    }
-    console.log("Shopping Cart Total: " + total);
+    var view = new total_price_view_1.totalPriceView(model);
+    console.log(view.getView());
 }

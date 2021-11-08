@@ -18,17 +18,18 @@ export class cartView{
     */
     public getView():String {
         let cart = this.state.itemsInCart();
+        let quantity = this.state.itemQuantity();
         let items: String = new String();
-        
-        for (let i = 0; i < cart.length; i++) {
-            let item:string = '';
-            item += ("");
-            item += ("       Name: "+cart[i].getName());
-            item += ("      Price: "+cart[i].getPrice());
-            item += ("Description: "+cart[i].getDescription());
-            //item += ("   Quantity: "+cart[i].);
-            items.concat(item);
-        }
+            
+            for (let i = 0; i < cart.length; i++) {
+                let item: string = (            
+                ""
+                +("       Name: "+cart[i].getName().toString())
+                +("      Price: "+cart[i].getPrice().toString())
+                +("Description: "+cart[i].getDescription().toString())
+                +("   Quantity: "+quantity[i].toString()));
+                items = items.concat(item);
+            }
 
         return items;
     }
