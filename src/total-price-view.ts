@@ -11,9 +11,8 @@ export class totalPriceView{
      * getView
  : String    */
     public getView(): String {
-        
         let total: number = 0;
-        for (let i = 0; i < this.state.itemsInCart.length; i++) {
+        for (let i = 0; i < this.state.itemsInCart().length; i++) {
             total += this.state.itemsInCart()[i].getPrice() * this.state.itemQuantity()[i];
         }
         return ("Shopping Cart Total: "+total);
