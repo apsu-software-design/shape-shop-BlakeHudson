@@ -92,7 +92,7 @@ function removeItemFromCart() {
 
 function viewItemsInCart() {
   let view: cartView = new cartView(model);
-  console.log(view.getView());
+  console.log(view.getView().toString());
 
 }
 
@@ -103,5 +103,5 @@ function viewCartTotal() {
 
 function viewIndexItems() {
   let view: indexNameView = new indexNameView(model);
-  console.log(view.getView());
+  console.log(view.getView().toString());
 }

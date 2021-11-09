@@ -88,7 +88,7 @@ function removeItemFromCart() {
 }
 function viewItemsInCart() {
     var view = new cart_view_1.cartView(model);
-    console.log(view.getView());
+    console.log(view.getView().toString());
 }
 function viewCartTotal() {
     var view = new total_price_view_1.totalPriceView(model);
@@ -96,5 +96,5 @@ function viewCartTotal() {
 }
 function viewIndexItems() {
     var view = new index_name_view_1.indexNameView(model);
-    console.log(view.getView());
+    console.log(view.getView().toString());
 }

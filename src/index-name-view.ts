@@ -19,7 +19,7 @@ export class indexNameView{
     public getView():String {
         let cart = this.state.itemsInCart();
         let quantity = this.state.itemQuantity();
-        let items: String = new String();
+        let items: String = new String("Items for removal:");
             
             for (let i = 0; i < cart.length; i++) {
                 let item: string = (            
