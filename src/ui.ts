@@ -7,6 +7,7 @@ import {Model} from './shape-shop-model';
 import {cartView} from './cart-view';
 import { ProductListView } from './product-list-view';
 import {totalPriceView } from './total-price-view';
+import  { indexNameView} from './index-name-view';
 
 // Hey look. It's a global variable. This is totally cool, right?
 //let shopping_cart: Product[] = [];
@@ -79,13 +80,8 @@ function letUserSelectQuantity() {
 function removeItemFromCart() {
     console.log(`Select an item to be removed from the cart.
   `);
-  /* products available for removal by index
-    for (let i = 0; i < shopping_cart.length; i++) {
-        console.log(i+": "+shopping_cart[i].getName());
-    }
-    */
     // MAy need a new view here
-    viewItemsInCart();
+    viewIndexItems();
 
     let response = readlineSync.question('> ')
     let toRemove = parseInt(response);
@@ -102,5 +98,10 @@ function viewItemsInCart() {
 
 function viewCartTotal() {
   let view: totalPriceView = new totalPriceView(model);
+  console.log(view.getView());
+}
+
+function viewIndexItems() {
+  let view: indexNameView = new indexNameView(model);
   console.log(view.getView());
 }

@@ -9,6 +9,7 @@ var shape_shop_model_1 = require("./shape-shop-model");
 var cart_view_1 = require("./cart-view");
 var product_list_view_1 = require("./product-list-view");
 var total_price_view_1 = require("./total-price-view");
+var index_name_view_1 = require("./index-name-view");
 // Hey look. It's a global variable. This is totally cool, right?
 //let shopping_cart: Product[] = [];
 //let quantity_cart: number[] = [];
@@ -78,13 +79,8 @@ function letUserSelectQuantity() {
 }
 function removeItemFromCart() {
     console.log("Select an item to be removed from the cart.\n  ");
-    /* products available for removal by index
-      for (let i = 0; i < shopping_cart.length; i++) {
-          console.log(i+": "+shopping_cart[i].getName());
-      }
-      */
     // MAy need a new view here
-    viewItemsInCart();
+    viewIndexItems();
     var response = readlineSync.question('> ');
     var toRemove = parseInt(response);
     model.removeProduct(toRemove);
@@ -96,5 +92,9 @@ function viewItemsInCart() {
 }
 function viewCartTotal() {
     var view = new total_price_view_1.totalPriceView(model);
+    console.log(view.getView());
+}
+function viewIndexItems() {
+    var view = new index_name_view_1.indexNameView(model);
     console.log(view.getView());
 }
