@@ -19,7 +19,9 @@ export class Model{
     }
 
     /**
-     * addQuantity
+     * sets the quantity of the item in
+     * corresponding index of the shopping_cart
+     * @param qty quantity of the item
      */
     public setQuantityOfItem(qty: number) {
         this.quantity_cart.push(qty);
@@ -27,7 +29,8 @@ export class Model{
     
     /**
      * removes a product based on the index of that product in a list
-     * @param position index in of profuct to be removed
+     * removes the product and the quantity corresponding in the same index position
+     * @param position index in of product to be removed
      */
     public removeProduct(position: number){
         this.shopping_cart.splice(position,1);
@@ -42,7 +45,7 @@ export class Model{
     }
 
     /**
-     * itemQuantity
+     * itemQuantity returns the list of quantities for corresonding items in cart
      */
     public itemQuantity(): number[] {
         return this.quantity_cart;

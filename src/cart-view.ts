@@ -1,21 +1,23 @@
 import {Model} from './shape-shop-model'
 /**
- * 
+ * processes view of shopping cart based on current state of the model
  */
 export class cartView{
     private state: Model;
 
     /**
-     * constructor
+     * constructor takes the current model object to obtain state
      * currentState: Model     
-     * */
+     */
     public constructor(currentState: Model) {
         this.state = currentState;
     }
 
     /**
-     * getView
-    */
+     * view for each item in cart
+     * gives name, price, description, and quantity in cart
+     * @returns Sting object of each item
+     */
     public getView():String {
         let cart = this.state.itemsInCart();
         let quantity = this.state.itemQuantity();
