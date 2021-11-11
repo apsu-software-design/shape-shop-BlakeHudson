@@ -9,9 +9,10 @@ import { ProductListView } from './product-list-view';
 import {totalPriceView } from './total-price-view';
 import  { indexNameView} from './index-name-view';
 
-// Hey look. It's a global variable. This is totally cool, right?
-//let shopping_cart: Product[] = [];
-//let quantity_cart: number[] = [];
+/**
+ * Model variable that contains the current state of the program,
+ * Used to get views for the user based on the selection
+ */
 let model: Model = new Model;
 /**
  * Function to run the UI
@@ -47,14 +48,17 @@ function showMainMenu() {
     console.log(''); //extra empty line for revisiting
   }
 }
-
+/**
+ * Calls to separate functions,
+ * One to add Product to cart and one to enter quantity.
+ */
 function addItemToCart() {
     letUserSelectItem();
     letUserSelectQuantity();
 }
 
 function letUserSelectItem() {
-    let prods: ProductListView = new ProductListView(model);
+    let prods: ProductListView = new ProductListView(); //View for each available prouct to add to cart
     console.log(prods.getView());
 
     let response = readlineSync.question('> ')
@@ -73,20 +77,20 @@ function letUserSelectQuantity() {
   `);
 
     let response = readlineSync.question('> ')
-    model.setQuantityOfItem(parseInt(response));
+    model.setQuantityOfItem(parseInt(response)); //Updates state model
     console.log(''); //extra empty line for revisiting
 }
 
 function removeItemFromCart() {
     console.log(`Select an item to be removed from the cart.
   `);
-    // MAy need a new view here
+    //View for selecting items to delete
     viewIndexItems();
 
     let response = readlineSync.question('> ')
     let toRemove = parseInt(response);
 
-    model.removeProduct(toRemove);
+    model.removeProduct(toRemove); //Updates state model
     console.log(''); //extra empty line for revisiting
 }
 

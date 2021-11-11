@@ -3,14 +3,12 @@ import { Model } from './shape-shop-model'
  * view for all items available for purchase
  */
 export class ProductListView {
-    private state: Model;
 
     /**
      * constructor takes the current model object to obtain state
      * currentState: Model     
      */
-    public constructor(currentState: Model) {
-        this.state = currentState;
+    public constructor() {
     }
 
     /**

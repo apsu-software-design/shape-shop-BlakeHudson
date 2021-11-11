@@ -10,9 +10,10 @@ var cart_view_1 = require("./cart-view");
 var product_list_view_1 = require("./product-list-view");
 var total_price_view_1 = require("./total-price-view");
 var index_name_view_1 = require("./index-name-view");
-// Hey look. It's a global variable. This is totally cool, right?
-//let shopping_cart: Product[] = [];
-//let quantity_cart: number[] = [];
+/**
+ * Model variable that contains the current state of the program,
+ * Used to get views for the user based on the selection
+ */
 var model = new shape_shop_model_1.Model;
 /**
  * Function to run the UI
@@ -49,12 +50,16 @@ function showMainMenu() {
         console.log(''); //extra empty line for revisiting
     }
 }
+/**
+ * Calls to separate functions,
+ * One to add Product to cart and one to enter quantity.
+ */
 function addItemToCart() {
     letUserSelectItem();
     letUserSelectQuantity();
 }
 function letUserSelectItem() {
-    var prods = new product_list_view_1.ProductListView(model);
+    var prods = new product_list_view_1.ProductListView(); //View for each available prouct to add to cart
     console.log(prods.getView());
     var response = readlineSync.question('> ');
     switch (response) { //handle each response
@@ -74,16 +79,16 @@ function letUserSelectItem() {
 function letUserSelectQuantity() {
     console.log("How many of this shape would you like to purchase?\n  ");
     var response = readlineSync.question('> ');
-    model.setQuantityOfItem(parseInt(response));
+    model.setQuantityOfItem(parseInt(response)); //Updates state model
     console.log(''); //extra empty line for revisiting
 }
 function removeItemFromCart() {
     console.log("Select an item to be removed from the cart.\n  ");
-    // MAy need a new view here
+    //View for selecting items to delete
     viewIndexItems();
     var response = readlineSync.question('> ');
     var toRemove = parseInt(response);
-    model.removeProduct(toRemove);
+    model.removeProduct(toRemove); //Updates state model
     console.log(''); //extra empty line for revisiting
 }
 function viewItemsInCart() {
