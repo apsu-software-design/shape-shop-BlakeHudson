@@ -5,9 +5,16 @@ exports.__esModule = true;
 exports.start = void 0;
 var readlineSync = require("readline-sync"); //for easier repeated prompts
 var products_1 = require("./products");
-// Hey look. It's a global variable. This is totally cool, right?
-var shopping_cart = [];
-var quantity_cart = [];
+var shape_shop_model_1 = require("./shape-shop-model");
+var cart_view_1 = require("./cart-view");
+var product_list_view_1 = require("./product-list-view");
+var total_price_view_1 = require("./total-price-view");
+var index_name_view_1 = require("./index-name-view");
+/**
+ * Model variable that contains the current state of the program,
+ * Used to get views for the user based on the selection
+ */
+var model = new shape_shop_model_1.Model;
 /**
  * Function to run the UI
  */
@@ -43,22 +50,27 @@ function showMainMenu() {
         console.log(''); //extra empty line for revisiting
     }
 }
+/**
+ * Calls to separate functions,
+ * One to add Product to cart and one to enter quantity.
+ */
 function addItemToCart() {
     letUserSelectItem();
     letUserSelectQuantity();
 }
 function letUserSelectItem() {
-    console.log("Here you can select your shape. Pick an option:\n  1. Buy a Triangle!\n  2. Buy a Square!\n  3. Buy a Pentagon!\n  4. Go back. Don't buy anything.");
+    var prods = new product_list_view_1.ProductListView(); //View for each available prouct to add to cart
+    console.log(prods.getView());
     var response = readlineSync.question('> ');
     switch (response) { //handle each response
         case '1':
-            shopping_cart.push(new products_1.Product("Triangle", 3.5, "It's got three sides!"));
+            model.addProduct(new products_1.Product("Triangle", 3.5, "It's got three sides!"));
             break;
         case '2':
-            shopping_cart.push(new products_1.Product("Square", 4.5, "It's got four sides!"));
+            model.addProduct(new products_1.Product("Square", 4.5, "It's got four sides!"));
             break;
         case '3':
-            shopping_cart.push(new products_1.Product("Pentagon", 5.5, "It's got five sides!"));
+            model.addProduct(new products_1.Product("Pentagon", 5.5, "It's got five sides!"));
             break;
         default: console.log('Invalid option!');
     }
@@ -67,34 +79,27 @@ function letUserSelectItem() {
 function letUserSelectQuantity() {
     console.log("How many of this shape would you like to purchase?\n  ");
     var response = readlineSync.question('> ');
-    quantity_cart.push(parseInt(response));
+    model.setQuantityOfItem(parseInt(response)); //Updates state model
     console.log(''); //extra empty line for revisiting
 }
 function removeItemFromCart() {
     console.log("Select an item to be removed from the cart.\n  ");
-    for (var i = 0; i < shopping_cart.length; i++) {
-        console.log("");
-        console.log(i + ": " + shopping_cart[i].getName());
-    }
+    //View for selecting items to delete
+    viewIndexItems();
     var response = readlineSync.question('> ');
     var toRemove = parseInt(response);
-    shopping_cart.splice(toRemove, 1);
-    quantity_cart.splice(toRemove, 1);
+    model.removeProduct(toRemove); //Updates state model
     console.log(''); //extra empty line for revisiting
 }
 function viewItemsInCart() {
-    for (var i = 0; i < shopping_cart.length; i++) {
-        console.log("");
-        console.log("       Name: " + shopping_cart[i].getName());
-        console.log("      Price: " + shopping_cart[i].getPrice());
-        console.log("Description: " + shopping_cart[i].getDescription());
-        console.log("   Quantity: " + quantity_cart[i]);
-    }
+    var view = new cart_view_1.cartView(model);
+    console.log(view.getView().toString());
 }
 function viewCartTotal() {
-    var total = 0;
-    for (var i = 0; i < shopping_cart.length; i++) {
-        total += shopping_cart[i].getPrice() * quantity_cart[i];
-    }
-    console.log("Shopping Cart Total: " + total);
+    var view = new total_price_view_1.totalPriceView(model);
+    console.log(view.getView());
+}
+function viewIndexItems() {
+    var view = new index_name_view_1.indexNameView(model);
+    console.log(view.getView().toString());
 }
